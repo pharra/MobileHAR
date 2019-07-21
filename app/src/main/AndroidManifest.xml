@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.mobilehar">
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -21,7 +22,7 @@
             android:name=".services.GyroscopeSensorService"
             android:exported="false" />
         <service
-            android:name=".services.GravitySensorService"
+            android:name=".services.AccelerometerSensorService"
             android:exported="false" />
     </application>
 

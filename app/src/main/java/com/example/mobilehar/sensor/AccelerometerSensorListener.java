@@ -4,13 +4,16 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 
+import com.example.mobilehar.eventbus.MessageEvent;
 import com.example.mobilehar.log.Logger;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.HashMap;
 import java.util.Locale;
 
 
-public class GravitySensorListener implements SensorEventListener {
+public class AccelerometerSensorListener implements SensorEventListener {
 
     private long lastUpdateTime;
     private float lastX;
@@ -42,7 +45,9 @@ public class GravitySensorListener implements SensorEventListener {
         data.put("z", lastZ);
         data.put("interval", (float) timeInterval);
 
-        Logger.d("GravitySensorListener", String.format(Locale.SIMPLIFIED_CHINESE, "gravity sensor: %d %f %f %f", timeInterval, lastX, lastY, lastZ));
+        EventBus.getDefault().post(new MessageEvent(data, MessageEvent.ACCELEROMETER));
+
+        Logger.d("AccelerometerSensorListener", String.format(Locale.SIMPLIFIED_CHINESE, "gravity sensor: %d %f %f %f", timeInterval, lastX, lastY, lastZ));
 
     }
 

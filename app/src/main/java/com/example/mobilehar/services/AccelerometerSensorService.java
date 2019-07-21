@@ -13,19 +13,17 @@ import android.os.Message;
 import android.os.Process;
 import android.widget.Toast;
 
-import com.example.mobilehar.log.Logger;
-import com.example.mobilehar.sensor.GravitySensorListener;
-import com.example.mobilehar.sensor.GyroscopeSensorListener;
+import com.example.mobilehar.sensor.AccelerometerSensorListener;
 
 
-public class GravitySensorService extends Service {
+public class AccelerometerSensorService extends Service {
 
     private Looper mServiceLooper;
     private ServiceHandler mServiceHandler;
 
     // Handler that receives messages from the thread
     private final class ServiceHandler extends Handler {
-        private GravitySensorListener gravitySensorListener;
+        private AccelerometerSensorListener accelerometerSensorListener;
         private SensorManager sensorManager;
         private static final int UPTATE_INTERVAL_TIME = 20000;
 
@@ -36,22 +34,22 @@ public class GravitySensorService extends Service {
 
         @Override
         public void handleMessage(Message msg) {
-            if (gravitySensorListener == null) {
+            if (accelerometerSensorListener == null) {
                 sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
-                gravitySensorListener = new GravitySensorListener();
+                accelerometerSensorListener = new AccelerometerSensorListener();
                 Sensor sensor = sensorManager
-                        .getDefaultSensor(Sensor.TYPE_GYROSCOPE);
+                        .getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
                 if (null != sensor)
-                    sensorManager.registerListener(gravitySensorListener, sensor, UPTATE_INTERVAL_TIME, this);
+                    sensorManager.registerListener(accelerometerSensorListener, sensor, UPTATE_INTERVAL_TIME, this);
             }
         }
 
         public void stop() {
-            if (gravitySensorListener != null) {
-                sensorManager.unregisterListener(gravitySensorListener);
+            if (accelerometerSensorListener != null) {
+                sensorManager.unregisterListener(accelerometerSensorListener);
             }
             sensorManager = null;
-            gravitySensorListener = null;
+            accelerometerSensorListener = null;
         }
     }
 
@@ -69,7 +67,7 @@ public class GravitySensorService extends Service {
 
     @Override
     public void onDestroy() {
-        Toast.makeText(this, "GravitySensorService destroying", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "AccelerometerSensorService destroying", Toast.LENGTH_SHORT).show();
         mServiceHandler.stop();
         super.onDestroy();
     }
@@ -81,7 +79,7 @@ public class GravitySensorService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        Toast.makeText(this, "GravitySensorService starting", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "AccelerometerSensorService starting", Toast.LENGTH_SHORT).show();
         Message msg = mServiceHandler.obtainMessage();
         msg.arg1 = startId;
         mServiceHandler.sendMessage(msg);
