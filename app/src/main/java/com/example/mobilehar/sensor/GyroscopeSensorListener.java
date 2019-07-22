@@ -4,7 +4,7 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 
-import com.example.mobilehar.eventbus.MessageEvent;
+import com.example.mobilehar.entity.MessageEvent;
 import com.example.mobilehar.log.Logger;
 
 import org.greenrobot.eventbus.EventBus;
@@ -39,15 +39,9 @@ public class GyroscopeSensorListener implements SensorEventListener {
         lastY = y;
         lastZ = z;
 
-        HashMap<String, Float> data = new HashMap<>();
-        data.put("x", lastX);
-        data.put("y", lastY);
-        data.put("z", lastZ);
-        data.put("interval", (float) timeInterval);
+        EventBus.getDefault().post(new MessageEvent(MessageEvent.GYROSCOPE, lastX, lastY, lastZ, timeInterval));
 
-        EventBus.getDefault().post(new MessageEvent(data, MessageEvent.GYROSCOPE));
-
-        Logger.d("GyroscopeSensorListener", String.format(Locale.SIMPLIFIED_CHINESE, "gyroscope sensor: %d %f %f %f", timeInterval, lastX, lastY, lastZ));
+        //Logger.d("GyroscopeSensorListener", String.format(Locale.SIMPLIFIED_CHINESE, "gyroscope sensor: %d %f %f %f", timeInterval, lastX, lastY, lastZ));
 
     }
 
