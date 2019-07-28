@@ -20,7 +20,7 @@ public class AccelerometerSensorService extends Service {
     public void onCreate() {
         SensorManager sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         AccelerometerSensorListener accelerometerSensorListener = new AccelerometerSensorListener();
-        Sensor sensor = sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
+        Sensor sensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         thread = new SensorThread(accelerometerSensorListener, sensorManager, sensor);
         thread.start();
     }

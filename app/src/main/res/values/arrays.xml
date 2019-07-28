@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="labels">
+        <item>WALKING</item>
+        <item>WALKING_UPSTAIRS</item>
+        <item>WALKING_DOWNSTAIRS</item>
+        <item>SITTING</item>
+        <item>STANDING</item>
+        <item>LAYING</item>
+        <item>STAND_TO_SIT</item>
+        <item>SIT_TO_STAND</item>
+        <item>SIT_TO_LIE</item>
+        <item>LIE_TO_SIT</item>
+        <item>STAND_TO_LIE</item>
+        <item>LIE_TO_STAND</item>
+    </string-array>
+</resources>
